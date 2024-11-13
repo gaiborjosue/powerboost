@@ -1,66 +1,73 @@
 export class Search {
-    constructor() {
-        this.repoOwner = 'RohiniDeshmukh';
+    constructor(pane) {
+        this.pane = pane;
+        this.examples = new Map();
+        this.repoOwner = 'mpsych';
         this.repoName = 'boostlet';
         this.folderPath = 'examples';
         this.apiUrl = `https://api.github.com/repos/${this.repoOwner}/${this.repoName}/contents/${this.folderPath}`;
-        this.fileList = [];
+        
+        this.state = {
+            selectedExample: ''
+        };
     }
 
+    async init() {
+        // Create Search folder
+        const searchFolder = this.pane.addFolder({
+            title: 'Search',
+            expanded: true
+        });
 
-    init() {
-        this.fetchFileNames();
+        // Fetch all examples first
+        const examples = await this.fetchAllExamples();
+        
+        // Create options object for search-list
+        const options = examples.reduce((acc, example) => {
+            acc[example] = example;
+            return acc;
+        }, {});
 
-        const searchInput = document.querySelector('.search-input');
-        searchInput.addEventListener('input', () => {
-            const query = searchInput.value;
-            const suggestions = this.filterFileNames(query);
-            this.displaySuggestions(suggestions);
+        // Add search input using search-list plugin
+        searchFolder.addBinding(this.state, 'selectedExample', {
+            view: 'search-list',
+            label: 'Example',
+            options: options,
+            noDataText: 'No examples found',
+            debounceDelay: 250
+        }).on('change', (ev) => {
+            if (ev.value) {
+                this.loadExample(ev.value);
+            }
         });
     }
 
-    async fetchFileNames() {
+    async fetchAllExamples() {
         try {
             const response = await fetch(this.apiUrl);
-            const data = await response.json();
-            this.fileList = data.map(file => file.name);
-            // console.log('File List:', this.fileList);
+            const files = await response.json();
+            const examples = [];
+
+            await Promise.all(files.map(async (file) => {
+                if (file.type === "file" && file.name.endsWith(".js")) {
+                    const fileName = file.name;
+                    const fileNameEdit = fileName.substring(fileName.lastIndexOf('/') + 1, fileName.lastIndexOf('.'));
+                    examples.push(fileNameEdit);
+                }
+            }));
+
+            return examples;
+
         } catch (error) {
-            console.error('Error fetching file names:', error);
-            this.fileList = [];
+            console.error('Error fetching examples:', error);
+            return [];
         }
     }
 
-    filterFileNames(query) {
-        if (!query) return [];
-        return this.fileList.filter(name => name.toLowerCase().startsWith(query.toLowerCase()));
-    }
-
-    displaySuggestions(suggestions) {
-        const searchBox = document.querySelector('.search-box');
-        searchBox.innerHTML = '';
-
-        suggestions.forEach(fileName => {
-            const suggestionDiv = document.createElement('div');
-            suggestionDiv.textContent = fileName;
-            suggestionDiv.classList.add('suggestion-item');
-            searchBox.appendChild(suggestionDiv);
-            suggestionDiv.addEventListener('click', () => this.appendScriptToHead(fileName));
-            
-        });
-
-        searchBox.style.display = suggestions.length ? 'block' : 'none';
-    }
-
-
-    appendScriptToHead(fileName) {
+    loadExample(exampleName) {
         const baseUrl = 'https://boostlet.org/examples/';
         const script = document.createElement('script');
-        script.src = `${baseUrl}${fileName}`;
+        script.src = `${baseUrl}${exampleName.replace(/\s+/g, '').toLowerCase()}.js`;
         document.head.appendChild(script);
-        const searchBox = document.querySelector('.search-box');
-        searchBox.style.display = 'none';
     }
-
-
-}  
+}

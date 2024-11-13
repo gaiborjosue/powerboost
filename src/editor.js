@@ -12,10 +12,9 @@ export class Editor {
         // Create Code Editor folder
         this.codeFolder = this.pane.addFolder({
             title: 'Code Editor',
-            expanded: true
+            expanded: false
         });
 
-        // Add code input with v4 syntax
         this.codeFolder.addBinding(this.codeState, 'value', {
             label: 'Code',
             view: 'textarea',

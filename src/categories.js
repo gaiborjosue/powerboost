@@ -27,7 +27,7 @@ export class Categories {
         // Create main Boostlets folder
         const boostletsFolder = this.pane.addFolder({
             title: 'Boostlets',
-            expanded: true
+            expanded: false
         });
 
         // Add category dropdown with empty option
