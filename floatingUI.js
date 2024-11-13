@@ -14,8 +14,8 @@ moduleScript.textContent = `
     // Now load PowerBoost
     const powerboostScript = document.createElement('script');
     powerboostScript.type = 'module';
-    powerboostScript.src = 'http://localhost:5500/dist/powerboost.min.js';
-    // powerboostScript.src = 'https://gaiborjosue.github.io/powerboost/dist/powerboost.min.js';
+    //powerboostScript.src = 'http://localhost:5500/dist/powerboost.min.js';
+    powerboostScript.src = 'https://gaiborjosue.github.io/powerboost/dist/powerboost.min.js';
     document.head.appendChild(powerboostScript);
 `;
 document.head.appendChild(moduleScript);
