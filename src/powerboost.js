@@ -18,7 +18,7 @@ export class Powerboost {
             // Create main Tweakpane instance
             this.pane = new window.Pane({
                 container: document.body,
-                title: 'PowerBoost 😎',
+                title: 'PowerBoost',
                 expanded: true,
             });
 
