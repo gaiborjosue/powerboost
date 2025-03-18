@@ -47,7 +47,7 @@ export class Editor {
             right: '0',
             width: '40%',
             height: '100%',
-            backgroundColor: 'var(--tp-container-background-color, rgba(0,0,0,0.95))',
+            backgroundColor: 'var(--tp-container-background-color, rgba(20,20,25,0.98))',
             zIndex: '9998',
             display: 'none',
             flexDirection: 'column',
@@ -102,7 +102,7 @@ export class Editor {
             height: 'calc(100% - 50px)', // Adjust height for the header
             marginBottom: '10px',
             position: 'relative',
-            backgroundColor: 'var(--tp-input-background-color, rgba(30,30,30,0.9))',
+            backgroundColor: 'var(--tp-input-background-color, rgba(25,25,35,0.97))',
             border: '1px solid var(--tp-input-background-color-focus, rgba(0,0,0,0.7))',
             borderRadius: '4px',
             overflow: 'hidden'
@@ -133,7 +133,7 @@ export class Editor {
             width: 'calc(100% - 40px)',
             height: '100%',
             backgroundColor: 'transparent',
-            color: 'var(--tp-input-foreground-color, white)',
+            color: 'rgba(255,255,255,0.95)',
             border: 'none',
             padding: '8px',
             resize: 'none',
@@ -185,7 +185,7 @@ export class Editor {
         Object.assign(output.style, {
             width: '100%',
             height: '30%',
-            backgroundColor: 'var(--tp-input-background-color, rgba(30,30,30,0.9))',
+            backgroundColor: 'var(--tp-input-background-color, rgba(25,25,35,0.97))',
             color: 'var(--tp-input-foreground-color, white)',
             border: '1px solid var(--tp-input-background-color-focus, rgba(0,0,0,0.7))',
             borderRadius: '4px',
