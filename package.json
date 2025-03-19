@@ -4,6 +4,6 @@
     "source": "src/index.js",
     "main": "dist/powerboost.min.js",
     "devDependencies": {
-      "parcel": "^2.10.3"
+        "parcel": "^2.14.1"
     }
-  }
+}
