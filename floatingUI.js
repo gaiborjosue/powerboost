@@ -9,7 +9,6 @@ moduleScript.textContent = `
     window.Pane = Pane;
     window.TextareaPlugin = TextareaPlugin;
     window.TweakpaneSearchListPlugin = TweakpaneSearchListPlugin;
-
     
     // Now load PowerBoost
     const powerboostScript = document.createElement('script');

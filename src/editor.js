@@ -30,6 +30,7 @@ export class Editor {
         
         // Show the editor
         this.fullscreenEditor.style.display = 'flex';
+        console.log("Opened editor")
         
         // Collapse PowerBoost pane
         this.pane.expanded = false;
